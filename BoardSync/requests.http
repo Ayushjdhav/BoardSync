@@ -1,0 +1,85 @@
+### 1. Health Check
+GET http://localhost:3000/api/health
+
+### 2. Root API Welcome
+GET http://localhost:3000/
+
+### 3. Get All Users
+GET http://localhost:3000/api/users
+
+### 4. User Signup (Successful)
+POST http://localhost:3000/api/auth/signup
+Content-Type: application/json
+
+{
+  "name": "Ayush Jadhav",
+  "email": "ayush@example.com",
+  "password": "MySecretPassword123"
+}
+
+### 5. User Signup (Missing Fields - should fail with 400)
+POST http://localhost:3000/api/auth/signup
+Content-Type: application/json
+
+{
+  "email": "incomplete@example.com"
+}
+
+### 6. User Signup (Short Password - should fail with 400)
+POST http://localhost:3000/api/auth/signup
+Content-Type: application/json
+
+{
+  "name": "Bob",
+  "email": "bob@example.com",
+  "password": "123"
+}
+
+### 7. User Login (Successful)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "ayush@example.com",
+  "password": "MySecretPassword123"
+}
+
+### 8. User Login (Invalid Password - should fail with 401)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "ayush@example.com",
+  "password": "WrongPassword123"
+}
+
+### 9. User Login (Non-existent Email - should fail with 401)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "unknown@example.com",
+  "password": "AnyPassword123"
+}
+
+### 10. User Login (Missing Fields - should fail with 400)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "ayush@example.com"
+}
+
+### 11. Get Current User Profile (Protected - Success with Bearer Token)
+# Replace <YOUR_JWT_TOKEN> with the token obtained from login
+GET http://localhost:3000/api/auth/me
+Authorization: Bearer <YOUR_JWT_TOKEN>
+
+### 12. Get Current User Profile (Protected - Missing Token should fail with 401)
+GET http://localhost:3000/api/auth/me
+
+### 13. Get Current User Profile (Protected - Invalid Token should fail with 401)
+GET http://localhost:3000/api/auth/me
+Authorization: Bearer invalid_jwt_token_12345
+
+
